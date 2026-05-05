@@ -76,39 +76,6 @@ class App(QWidget):
             ButtonConfig("btn_return_refunded", "READY_FOR_REFUND -> REFUNDED", self.copy_return_refunded),
 
         ]
-
-        # self.btn_reception = QPushButton("NOT_RECEIVED -> PLACEMENT")
-        # self.btn_reception.setEnabled(False)
-        # self.btn_reception.clicked.connect(self.copy_reception)
-
-        # self.btn_sorting = QPushButton("PLACEMENT -> READY")
-        # self.btn_sorting.setEnabled(False)
-        # self.btn_sorting.clicked.connect(self.copy_placement)
-        #
-        # self.btn_in_delivery = QPushButton("PICKING -> IN_DELIVERY")
-        # self.btn_in_delivery.setEnabled(False)
-        # self.btn_in_delivery.clicked.connect(self.copy_in_delivery)
-        #
-        # self.btn_delivered = QPushButton("IN_DELIVERY -> DELIVERED")
-        # self.btn_delivered.setEnabled(False)
-        # self.btn_delivered.clicked.connect(self.copy_delivered)
-        #
-        # self.btn_picked_up = QPushButton("PICKED_UP")
-        # self.btn_picked_up.setEnabled(False)
-        # self.btn_picked_up.clicked.connect(self.copy_picked_up)
-
-        # self.btn_return_processing = QPushButton("PICKED_UP -> PROCESSING")
-        # self.btn_return_processing.setEnabled(False)
-        # self.btn_return_processing.clicked.connect(self.copy_processing)
-
-        # self.btn_return_ready_for_refund = QPushButton("PROCESSING -> READY_FOR_REFUND")
-        # self.btn_return_ready_for_refund.setEnabled(False)
-        # self.btn_return_ready_for_refund.clicked.connect(self.copy_return_ready_for_refund)
-
-        # self.btn_return_refunded = QPushButton("READY_FOR_REFUND -> REFUNDED")
-        # self.btn_return_refunded.setEnabled(False)
-        # self.btn_return_refunded.clicked.connect(self.copy_return_refunded)
-
         for btn in buttons:
             button = QPushButton(btn.text)
             button.setEnabled(btn.enabled)
@@ -116,15 +83,6 @@ class App(QWidget):
             setattr(self, btn.name, button)
             right_layout.addWidget(button)
 
-        # right_layout.addWidget(self.btn_reception)
-        # right_layout.addWidget(self.btn_sorting)
-        # right_layout.addWidget(self.btn_in_delivery)
-        # right_layout.addWidget(self.btn_delivered)
-        # #
-        # right_layout.addWidget(self.btn_picked_up)
-        # right_layout.addWidget(self.btn_return_processing)
-        # right_layout.addWidget(self.btn_return_ready_for_refund)
-        # right_layout.addWidget(self.btn_return_refunded)
         right_layout.addStretch()
 
         main_layout.addLayout(left_layout)
