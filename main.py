@@ -69,12 +69,12 @@ class App(QWidget):
             ButtonConfig("btn_sorting", "PLACEMENT -> READY", self.copy_placement),
             ButtonConfig("btn_in_delivery", "PICKING -> IN_DELIVERY", self.copy_in_delivery),
             ButtonConfig("btn_delivered", "IN_DELIVERY -> DELIVERED", self.copy_delivered),
+            ButtonConfig("btn_unsucessfully_delivery", "IN_DELIVERY -> PLACEMENT_FOR_REFUND", self.copy_unsucessfull_delivery),
             ButtonConfig("btn_picked_up", "READY_FOR_PICKUP -> PICKED_UP", self.copy_picked_up),
             ButtonConfig("btn_return_processing", "PICKED_UP -> PROCESSING", self.copy_processing),
             ButtonConfig("btn_return_ready_for_refund", "PROCESSING -> READY_FOR_REFUND",
                          self.copy_return_ready_for_refund),
             ButtonConfig("btn_return_refunded", "READY_FOR_REFUND -> REFUNDED", self.copy_return_refunded),
-
         ]
         for btn in buttons:
             button = QPushButton(btn.text)
@@ -178,9 +178,10 @@ class App(QWidget):
             "warehouseId": self.get_store_id(),
             "state": "ReadyForDelivery",
             "version": 4,
-            "userId": "3575a2f8-fca7-424b-dad-56c415bbe176"
+            "userId": "3575a2f8-fca7-424b-bdad-56c415bbe176"
         }
         self.copy_to_clipboard(data)
+    
 
     def copy_delivered(self):
         data = {
@@ -188,6 +189,20 @@ class App(QWidget):
             "orderId": self.get_delivery_id(),
             "warehouseId": self.get_store_id(),
             "packageIdentifiers": self.get_packages_list()
+        }
+        self.copy_to_clipboard(data)
+
+    def copy_unsucessfull_delivery(self):
+        data = {
+            "timestamp": datetime.now().isoformat() + "000Z",
+            "orderId": self.get_delivery_id(),
+            "warehouseId": self.get_store_id(),
+            "reason": {
+                "code": "RefusedByCustomer",
+                "description": "Получатель отказался",
+                "comment": "Тестируем тесты"
+            },
+            "stage": "IN_PROGRESS"
         }
         self.copy_to_clipboard(data)
 
@@ -252,6 +267,7 @@ class App(QWidget):
         self.btn_sorting.setEnabled(bool(packages and store))
         self.btn_in_delivery.setEnabled(bool(delivery and store))
         self.btn_delivered.setEnabled(bool(packages and store and delivery))
+        self.btn_unsucessfully_delivery.setEnabled(bool(delivery and store))
         # возвратные
         self.btn_picked_up.setEnabled(bool(packages and store and delivery))
         self.btn_return_processing.setEnabled(bool(packages and store and delivery))
